@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Contato
 from django.http import Http404
 from django.core.paginator import Paginator
@@ -39,6 +39,7 @@ def busca(request):
          messages.ERROR, 
         'Campo termo não pode ficar vazio'
         )
+        return redirect('index')
     campos = Concat('nome', Value(' '), 'sobrenome')
     contatos = Contato.objects.annotate(
         nome_completo=campos
